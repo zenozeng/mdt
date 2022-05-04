@@ -15,5 +15,5 @@ RUN mkdir -p /usr/local/lib/mermaid-cli && \
     cd /usr/local/lib/mermaid-cli && \
     npm install --registry=https://registry.npmmirror.com @mermaid-js/mermaid-cli
 RUN groupadd -r mdt && useradd --no-log-init -r -g mdt mdt
-ADD puppeteer-config.json /usr/local/lib/mermaid-cli/
+ADD rootfs /
 USER mdt

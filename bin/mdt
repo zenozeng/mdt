@@ -5,8 +5,10 @@ set -e
 export BASEDIR=$(dirname "$0")/..
 export WORKDIR=$(mktemp -d /tmp/mdt-XXXXXXXX)
 
+echo $WORKDIR
+
 docker_run() {
-    docker run -i -v $WORKDIR:$WORKDIR -v $(pwd):$(pwd) -w $WORKDIR $@
+    docker run -i -v $WORKDIR:/home/mdt -v $(pwd):$(pwd) -w /home/mdt $@
 }
 
 case "$1" in
@@ -21,10 +23,7 @@ case "$1" in
         ;;
     pdf)
         cat - > $WORKDIR/input.md
-        docker_run mdt ls -lah $WORKDIR
-        docker_run mdt /usr/local/lib/mermaid-cli/node_modules/.bin/mmdc -p /usr/local/lib/mermaid-cli/puppeteer-config.json -i $WORKDIR/input.md -o $WORKDIR/pandoc.md
-        TYPE=$(cat $WORKDIR/pandoc.md | grep '^type' | head -n1 | cut -d ' ' -f 2)
-        cat $WORKDIR/pandoc.md | docker_run mdt pandoc -t $TYPE --pdf-engine=xelatex -o $(pwd)/output.pdf
+        docker_run -e OUTPUT=$(pwd)/output.pdf mdt mdt-pdf
         ;;
     *)
 cat <<EOF
