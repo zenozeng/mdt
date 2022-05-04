@@ -1,0 +1,43 @@
+#!/bin/bash
+
+set -e
+
+export BASEDIR=$(dirname "$0")/..
+export WORKDIR=$(mktemp -d /tmp/mdt-XXXXXXXX)
+
+docker_run() {
+    docker run -i -v $WORKDIR:$WORKDIR -v $(pwd):$(pwd) -w $WORKDIR $@
+}
+
+case "$1" in
+    bash)
+        docker_run -t mdt bash
+        ;;
+    root)
+        docker_run -u root -t mdt bash
+        ;;
+    docker)
+        docker build -t mdt $BASEDIR
+        ;;
+    pdf)
+        cat - > $WORKDIR/input.md
+        docker_run mdt ls -lah $WORKDIR
+        docker_run mdt /usr/local/lib/mermaid-cli/node_modules/.bin/mmdc -p /usr/local/lib/mermaid-cli/puppeteer-config.json -i $WORKDIR/input.md -o $WORKDIR/pandoc.md
+        TYPE=$(cat $WORKDIR/pandoc.md | grep '^type' | head -n1 | cut -d ' ' -f 2)
+        cat $WORKDIR/pandoc.md | docker_run mdt pandoc -t $TYPE --pdf-engine=xelatex -o $(pwd)/output.pdf
+        ;;
+    *)
+cat <<EOF
+mdt
+Markdown toolkit
+
+Usage:
+
+- Build docker image
+  mdt docker
+
+- Convert markdown to pdf
+  cat examples/beamer.md | mdt pdf
+EOF
+        ;;
+esac

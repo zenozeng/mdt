@@ -1,9 +1,10 @@
-FROM ubuntu:22.04
-RUN sed -i "s|archive.ubuntu.com|mirrors.ustc.edu.cn|g" /etc/apt/sources.list
+FROM debian:11.3
+RUN sed -i "s|deb.debian.org|mirrors.ustc.edu.cn|g" /etc/apt/sources.list
 ENV TZ=Asia/Shanghai \
     DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install --yes \
+    chromium \
     fonts-noto-cjk \
     librsvg2-bin \
     npm \
@@ -13,3 +14,6 @@ RUN apt-get update && \
 RUN mkdir -p /usr/local/lib/mermaid-cli && \
     cd /usr/local/lib/mermaid-cli && \
     npm install --registry=https://registry.npmmirror.com @mermaid-js/mermaid-cli
+RUN groupadd -r mdt && useradd --no-log-init -r -g mdt mdt
+ADD puppeteer-config.json /usr/local/lib/mermaid-cli/
+USER mdt

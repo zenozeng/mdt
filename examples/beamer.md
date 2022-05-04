@@ -31,6 +31,13 @@ console.log("Hello, world!");
 
 $$ f(x) = x^2 $$
 
+## Mermaid
+
+```mermaid
+flowchart TD
+    Start --> Stop
+```
+
 ## Footnotes
 
 Here is a footnote reference.[^note]
