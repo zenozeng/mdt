@@ -1,0 +1,32 @@
+#!/bin/bash
+
+BASEDIR=$(dirname "$0")
+WORKDIR=$(mktemp -d)
+
+case "$1" in
+    bash)
+        docker run -v $(pwd):$(pwd) -w $(pwd) -it mdt bash
+        ;;
+    docker)
+        docker build -t mdt $BASEDIR
+        ;;
+    pdf)
+        cat - > $WORKDIR/pandoc.md
+        TYPE=$(cat $WORKDIR/pandoc.md | grep '^type' | head -n1 | cut -d ' ' -f 2)
+        cat $WORKDIR/pandoc.md | docker run -i -v $(pwd):$(pwd) -w $(pwd) mdt pandoc -t $TYPE --pdf-engine=xelatex -o output.pdf
+        ;;
+    *)
+cat <<EOF
+mdt
+Markdown toolkit
+
+Usage:
+
+- Build docker image
+  mdt docker
+
+- Convert markdown to pdf
+  cat examples/beamer.md | mdt pdf
+EOF
+        ;;
+esac
