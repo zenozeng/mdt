@@ -1,12 +1,30 @@
 ---
 type: beamer
-title: Example
+title: Beamer 示例
 author: Zeno Zeng
-mainfont: Noto Sans CJK SC
-theme: Madrid
+institute: github.com/zenozeng/mdt
+theme: tofu
 toc: true
 section-titles: false
 ---
+
+## CJK
+
+\Huge 我能吞下玻璃而不伤身体
+
+\huge 我能吞下玻璃而不伤身体
+
+\LARGE 我能吞下玻璃而不伤身体
+
+\Large 我能吞下玻璃而不伤身体
+
+\large 我能吞下玻璃而不伤身体
+
+\normalsize 我能吞下玻璃而不伤身体
+
+\small 我能吞下玻璃而不伤身体
+
+\tiny 我能吞下玻璃而不伤身体
 
 ## List
 
@@ -23,23 +41,30 @@ Here is an ordered list:
 console.log("Hello, world!");
 ```
 
-## CJK
-
-我能吞下玻璃而不伤身体
-
 ## Math
 
 $$ f(x) = x^2 $$
 
-## Mermaid
+## Mermaid 图表示例
+
+### Mermaid Flowchart
 
 ```mermaid
 flowchart TD
     Start --> Stop
 ```
 
+### Mermaid Piechart
+
+```mermaid
+pie title ABC
+    "A": 2
+    "B": 1
+    "C": 1
+```
+
 ## Footnotes
 
 Here is a footnote reference.[^note]
 
-[^note]: Here is the footnote.
+[^note]: 这里是脚注

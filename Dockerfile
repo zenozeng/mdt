@@ -16,4 +16,5 @@ RUN mkdir -p /usr/local/lib/mermaid-cli && \
     npm install --registry=https://registry.npmmirror.com @mermaid-js/mermaid-cli
 RUN groupadd -r mdt && useradd --no-log-init -r -g mdt mdt
 ADD rootfs /
+ADD themes /usr/local/lib/mdt/themes/
 USER mdt

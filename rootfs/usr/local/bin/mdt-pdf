@@ -4,4 +4,4 @@ set -e
 
 TYPE=$(cat input.md | grep '^type' | head -n1 | cut -d ' ' -f 2)
 /usr/local/lib/mermaid-cli/node_modules/.bin/mmdc --theme neutral -p /usr/local/lib/mermaid-cli/puppeteer-config.json -c /usr/local/lib/mermaid-cli/config.json -i input.md -o pandoc.md
-cat pandoc.md | pandoc -t $TYPE --pdf-engine=xelatex -o $OUTPUT
+cat pandoc.md | pandoc -t $TYPE --pdf-engine=xelatex -o $OUTPUT $@

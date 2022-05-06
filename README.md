@@ -21,3 +21,4 @@ Markdown toolkit (pandoc, XeLaTeX, mermaid and LaTeX beamer slide show)
 - https://pandoc.org/MANUAL.html
 - https://github.com/alexeygumirov/pandoc-beamer-how-to
 - https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#setting-up-chrome-linux-sandbox
+- http://tug.ctan.org/macros/latex/contrib/beamer/doc/beameruserguide.pdf

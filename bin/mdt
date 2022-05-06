@@ -5,15 +5,13 @@ set -e
 export BASEDIR=$(dirname "$0")/..
 export WORKDIR=$(mktemp -d /tmp/mdt-XXXXXXXX)
 
-echo $WORKDIR
-
 docker_run() {
-    docker run -i -v $WORKDIR:/home/mdt -v $(pwd):$(pwd) -w /home/mdt $@
+    docker run -i -v $WORKDIR:/home/mdt/workdir -v $(pwd):$(pwd) -w /home/mdt/workdir -e SOURCE_DIR=$(pwd) $@
 }
 
 case "$1" in
     bash)
-        docker_run -t mdt bash
+        docker_run -t mdt mdt-run bash
         ;;
     root)
         docker_run -u root -t mdt bash
@@ -23,7 +21,7 @@ case "$1" in
         ;;
     pdf)
         cat - > $WORKDIR/input.md
-        docker_run -e OUTPUT=$(pwd)/output.pdf mdt mdt-pdf
+        docker_run -e OUTPUT=$(pwd)/output.pdf mdt mdt-run mdt-pdf "${@:2}"
         ;;
     *)
 cat <<EOF

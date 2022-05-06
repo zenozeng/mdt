@@ -1,0 +1,3 @@
+[submodule "themes/tofu"]
+	path = themes/tofu
+	url = git@github.com:zenozeng/tofu.git
