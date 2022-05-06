@@ -13,7 +13,13 @@ Markdown toolkit (pandoc, XeLaTeX, mermaid and LaTeX beamer slide show)
 - Convert markdown to pdf
 
   ```bash
-  cat examples/beamer.md | mdt pdf
+  mdt pdf examples/beamer.md
+  ```
+
+- Convert markdown to pdf (watch)
+
+  ```bash
+  mdt pdf --watch examples/beamer.md -d examples/defaults.yaml
   ```
 
 ## Reference

@@ -2,6 +2,25 @@
 
 set -e
 
-TYPE=$(cat input.md | grep '^type' | head -n1 | cut -d ' ' -f 2)
-/usr/local/lib/mermaid-cli/node_modules/.bin/mmdc --theme neutral -p /usr/local/lib/mermaid-cli/puppeteer-config.json -c /usr/local/lib/mermaid-cli/config.json -i input.md -o pandoc.md
-cat pandoc.md | pandoc -t $TYPE --pdf-engine=xelatex -o $OUTPUT $@
+trap "exit;" SIGINT SIGTERM
+
+if [ "$1" = "--watch" ]; then
+    CHECKSUM="-"
+    while true; do
+        cp $2 input.md
+        NEW_CHECKSUM=$(openssl md5 input.md | cut -d ' ' -f 2)        
+        if [ "$NEW_CHECKSUM" != $CHECKSUM ]; then
+            CHECKSUM=$NEW_CHECKSUM
+            TYPE=$(cat input.md | grep '^type' | head -n1 | cut -d ' ' -f 2)
+            /usr/local/lib/mermaid-cli/node_modules/.bin/mmdc --theme neutral -p /usr/local/lib/mermaid-cli/puppeteer-config.json -c /usr/local/lib/mermaid-cli/config.json -i input.md -o pandoc.md
+            cat pandoc.md | pandoc -t $TYPE --pdf-engine=xelatex -o $OUTPUT "${@:3}"
+            echo "[mdt] PDF created"
+        fi
+        sleep 1
+    done
+else
+    cp $1 input.md
+    TYPE=$(cat input.md | grep '^type' | head -n1 | cut -d ' ' -f 2)
+    /usr/local/lib/mermaid-cli/node_modules/.bin/mmdc --theme neutral -p /usr/local/lib/mermaid-cli/puppeteer-config.json -c /usr/local/lib/mermaid-cli/config.json -i input.md -o pandoc.md
+    cat pandoc.md | pandoc -t $TYPE --pdf-engine=xelatex -o $OUTPUT "${@:2}"
+fi

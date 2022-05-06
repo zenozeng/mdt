@@ -20,7 +20,6 @@ case "$1" in
         docker build -t mdt $BASEDIR
         ;;
     pdf)
-        cat - > $WORKDIR/input.md
         docker_run -e OUTPUT=$(pwd)/output.pdf mdt mdt-run mdt-pdf "${@:2}"
         ;;
     *)
@@ -34,7 +33,10 @@ Usage:
   mdt docker
 
 - Convert markdown to pdf
-  cat examples/beamer.md | mdt pdf
+  mdt pdf examples/beamer.md
+
+- Convert markdown to pdf (watch)
+  mdt pdf --watch examples/beamer.md
 EOF
         ;;
 esac
