@@ -12,6 +12,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /usr/local/lib/mermaid-cli && \
     cd /usr/local/lib/mermaid-cli && \
+    echo "{}" > package.json && \
     npm install --registry=https://registry.npmmirror.com @mermaid-js/mermaid-cli
 ADD rootfs/usr/local/lib/slidev/* /usr/local/lib/slidev/
 RUN cd /usr/local/lib/slidev/ && npm install --registry=https://registry.npmmirror.com --dd
