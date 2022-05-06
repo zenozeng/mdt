@@ -19,6 +19,9 @@ case "$1" in
     docker)
         docker build -t mdt $BASEDIR
         ;;
+    slidev)
+        docker_run mdt mdt-run npm run dev
+        ;;
     pdf)
         docker_run -e OUTPUT=$(pwd)/output.pdf mdt mdt-run mdt-pdf "${@:2}"
         ;;

@@ -10,6 +10,12 @@ Markdown toolkit (pandoc, XeLaTeX, mermaid and LaTeX beamer slide show)
   mdt docker
   ```
 
+- Slidev
+
+  ```bash
+  mdt slidev examples/slidev.md
+  ```
+
 - Convert markdown to pdf
 
   ```bash
