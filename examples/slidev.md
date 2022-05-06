@@ -1,11 +1,19 @@
 ---
 type: slidev
-author: Zeno Zeng
+theme: default
+---
+
+# Slidev
+
+Slidev Test
+
 ---
 
 ## CJK
 
 我能吞下玻璃而不伤身体
+
+---
 
 ## List
 
@@ -15,6 +23,8 @@ Here is an ordered list:
 2. Item 2
 3. Item 3
 
+---
+
 ## Syntax Highlighting
 
 ```javascript
@@ -22,11 +32,17 @@ Here is an ordered list:
 console.log("Hello, world!");
 ```
 
+---
+
 ## Math
 
 $$ f(x) = x^2 $$
 
+---
+
 ## Mermaid 图表示例
+
+---
 
 ### Mermaid Flowchart
 
@@ -34,6 +50,8 @@ $$ f(x) = x^2 $$
 flowchart TD
     Start --> Stop
 ```
+
+---
 
 ### Mermaid Piechart
 
@@ -43,6 +61,8 @@ pie title ABC
     "B": 1
     "C": 1
 ```
+
+---
 
 ## Footnotes
 

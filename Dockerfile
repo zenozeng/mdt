@@ -14,9 +14,11 @@ RUN mkdir -p /usr/local/lib/mermaid-cli && \
     cd /usr/local/lib/mermaid-cli && \
     echo "{}" > package.json && \
     npm install --registry=https://registry.npmmirror.com @mermaid-js/mermaid-cli
-ADD rootfs/usr/local/lib/slidev/* /usr/local/lib/slidev/
-RUN cd /usr/local/lib/slidev/ && npm install --registry=https://registry.npmmirror.com --dd
 RUN groupadd -r mdt && useradd --no-log-init -r -g mdt mdt
+ADD rootfs/usr/local/lib/slidev/package.json /home/mdt/workdir/package.json
+WORKDIR /home/mdt/workdir
+RUN chown -R mdt:mdt /home/mdt
+USER mdt
+RUN npm install --registry=https://registry.npmmirror.com --dd
 ADD rootfs /
 ADD themes /usr/local/lib/mdt/themes/
-USER mdt

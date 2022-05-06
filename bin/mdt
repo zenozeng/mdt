@@ -3,10 +3,9 @@
 set -e
 
 export BASEDIR=$(dirname "$0")/..
-export WORKDIR=$(mktemp -d /tmp/mdt-XXXXXXXX)
 
 docker_run() {
-    docker run -i -v $WORKDIR:/home/mdt/workdir -v $(pwd):$(pwd) -w /home/mdt/workdir -e SOURCE_DIR=$(pwd) $@
+    docker run -i -v $(pwd):$(pwd) -e SOURCE_DIR=$(pwd) $@
 }
 
 case "$1" in
@@ -20,7 +19,7 @@ case "$1" in
         docker build -t mdt $BASEDIR
         ;;
     slidev)
-        docker_run mdt mdt-run npm run dev
+        docker_run -p 127.0.0.1:3030:3030 -t mdt mdt-run mdt-slidev "${@:2}"
         ;;
     pdf)
         docker_run -e OUTPUT=$(pwd)/output.pdf mdt mdt-run mdt-pdf "${@:2}"

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+ln -s $1 slides.md
+npx slidev --remote

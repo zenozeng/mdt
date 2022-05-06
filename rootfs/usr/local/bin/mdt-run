@@ -2,7 +2,6 @@
 
 set -e
 
-ln -s /usr/local/lib/slidev/* /home/mdt/workdir/
 ln -s $SOURCE_DIR/* /home/mdt/workdir/
 cp -rf /usr/local/lib/mdt/themes/**/*.sty /home/mdt/workdir/
 
