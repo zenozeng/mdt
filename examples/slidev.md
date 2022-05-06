@@ -1,6 +1,10 @@
 ---
 type: slidev
 theme: default
+fonts:
+    sans: 'Noto Sans CJK SC'
+    serif: 'Noto Serif CJK SC'
+    local: 'Noto Sans CJK SC,Noto Serif CJK SC'
 ---
 
 # Slidev
